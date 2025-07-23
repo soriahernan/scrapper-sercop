@@ -1,6 +1,6 @@
 const express = require('express');
-const puppeteer = require('puppeteer');
 const cors = require('cors');
+const puppeteer = require('puppeteer');
 
 const app = express();
 app.use(cors());
@@ -11,7 +11,10 @@ app.post('/scrape', async (req, res) => {
   if (!ruc) return res.status(400).json({ error: 'RUC requerido' });
 
   try {
-    const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
     const page = await browser.newPage();
 
     await page.goto('https://www.compraspublicas.gob.ec/ProcesoContratacion/compras/PC/buscarProceso.cpe');
