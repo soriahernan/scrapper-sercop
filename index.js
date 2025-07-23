@@ -1,10 +1,10 @@
-import express from 'express';
-import puppeteer from 'puppeteer';
-import cors from 'cors';
+const express = require('express');
+const puppeteer = require('puppeteer');
+const cors = require('cors');
 
 const app = express();
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 app.post('/scrape', async (req, res) => {
   const { ruc } = req.body;
@@ -37,7 +37,7 @@ app.post('/scrape', async (req, res) => {
     res.json({ procesos: data });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Error en el scraping' });
+    res.status(500).json({ error: 'Error en scraping' });
   }
 });
 
